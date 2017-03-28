@@ -71,8 +71,8 @@ with open('./data/testing_real.txt') as predict1:
 labels = set_label(fake_size, real_size)
 
 
-print labels
-print train_news
+# print labels
+# print train_news
 print "test result with [R, R, R, R, F, F, F, F]"
 print "Decision Tree Result: (1 for Real, 0 for fake)"
 clf = tree.DecisionTreeClassifier()
@@ -82,3 +82,10 @@ print clf.predict(predict_news)
 print "SVM Result: (1 for Real, 0 for fake)"
 classif = OneVsRestClassifier(estimator=SVC(random_state=0))
 print classif.fit(train_news, labels).predict(predict_news)
+
+# output:
+# test result with [R, R, R, R, F, F, F, F]
+# Decision Tree Result: (1 for Real, 0 for fake)
+# [1 0 1 1 1 0 0 0]
+# SVM Result: (1 for Real, 0 for fake)
+# [1 0 1 0 1 0 0 0]
