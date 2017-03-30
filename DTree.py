@@ -6,7 +6,7 @@ from sklearn import tree
 from sklearn import svm
 from sklearn.svm import SVC
 from sklearn.multiclass import OneVsRestClassifier
-
+import read_html
 # test Decision Tree and compare with SVM
 # use two feature: title length and special character
 
@@ -82,6 +82,21 @@ print clf.predict(predict_news)
 print "SVM Result: (1 for Real, 0 for fake)"
 classif = OneVsRestClassifier(estimator=SVC(random_state=0))
 print classif.fit(train_news, labels).predict(predict_news)
+
+print "trying list of news from internet!"
+list_headlines = read_html.getFakeNews('data/test.txt')
+test_news = []
+for line in list_headlines:
+    special_character = count_special_character(clean_sentence(line))
+    line_length = count_length(clean_sentence(line))
+    test_news.append([special_character, line_length])
+
+print "test result with [F, F, R]"
+print "Decision Tree Result: (1 for Real, 0 for fake)"
+clf = tree.DecisionTreeClassifier()
+clf = clf.fit(train_news, labels)
+print clf.predict(test_news)
+
 
 # output:
 # test result with [R, R, R, R, F, F, F, F]
