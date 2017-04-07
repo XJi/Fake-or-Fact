@@ -6,7 +6,7 @@ in genCrossValid.py, <b>genData(k, file, writeToFile)</b> can generate the datas
 <b>--parameters</b>  
 <b>k</b>: number of folds, fedault 10  
 <b>file</b>: the path of the file  
-<b>writeToFile</b>: boolean, wether write the cross-validation data to files. If true, the method will generate 2*k files, where "ntrain.csv" contains the training set for n-th cross validation and "ntest.csv" contains the testing set for n-th cross-validation  
+<b>writeToFile</b>: Boolean, wether write the cross-validation data to files or not. If true, the method will generate 2*k files, where "ntrain.csv" contains the training set for n-th cross validation and "ntest.csv" contains the testing set for n-th cross-validation  
 <b>--return</b>: list for training sets and list of testing sets (all in Numpy's nd-array)
 
 
