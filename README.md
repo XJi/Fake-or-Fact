@@ -2,7 +2,7 @@
 A News Analyzer to detect fake news
 
 ### If you want to generate the data set for cross-validation  
-[wikipedia for cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics))  
+[LINK - wikipedia for cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics))  
 in genCrossValid.py, <b>genData(k, file, writeToFile)</b> can generate the datasets for k-fold cross validation  
 <b>--parameters</b>  
 <b>k</b>: number of folds, fedault 10  
