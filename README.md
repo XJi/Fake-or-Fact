@@ -11,7 +11,7 @@ in genCrossValid.py, <b>genData(k, file, writeToFile)</b> can generate the datas
 
 
 ### prerequisite outside libraries  
-if using RandomTree.py, RandomForest.py, genCrossValid.py, then Numpy % scipy are required:  
+if using RandomTree.py, RandomForest.py, genCrossValid.py, then <b>Numpy</b> and <b>Scipy</b> are required:  
 Numpy v1.11.1  
 Scipy v0.17.1  
   
