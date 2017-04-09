@@ -48,5 +48,5 @@ def run(train=[],test=[],leafsize=5,bag=10):
 if __name__=="__main__":
     #run(17,15);#(leaf,bag)
     train,test=getCrossValidSet(k=10, file="./data.csv", writeToFile=False)
-    run(train,test,5,1)
+    run(train,test,5,10)
     pass;
