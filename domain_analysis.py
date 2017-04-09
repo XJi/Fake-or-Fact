@@ -1,8 +1,9 @@
-import csv
+import csv, traceback, requests
 import cPickle as pickle
 from urlparse import urlparse
 import sys
 import whois
+from newspaper import Article
 
 def isInDictionary(d,url):
 	list_sites = d.keys()
@@ -69,10 +70,14 @@ def calcAvgCreationDateAge(list_domains):
 	list_dates = []
 	sum = 0
 	for dom in list_domains:
-		yr = getWhoisCreationDate(dom)
-		print yr, dom
-		sum+=yr
-		list_dates.append(yr)
+		try:
+			yr = getWhoisCreationDate(dom)
+			print yr, dom
+			sum+=yr
+			list_dates.append(yr)
+		except AttributeError:
+			print "Failed on dom "+dom
+			traceback.print_exc()
 	return float(sum)/float(len(list_dates))	
 #	pickle.dump(list_dates,'creation_dates.cp')
 #	print list_dates
@@ -90,6 +95,11 @@ def getListOfNewsDomains(file_path):
 			list_dom.append(site)
 	return list_dom	
 
+#TODO
+def getAuthorsOtherWorks(article):
+	return False
+
+
 
 
 if __name__ == "__main__":
@@ -106,4 +116,24 @@ if __name__ == "__main__":
 		#print "News Domain was created on "+str( getWhoisInformation(news_hostname))
 		list_credible_domains = getListOfNewsDomains('credible.csv')
 		print('Avg Domain Creation Date of Credible News Sites is 1994.95 ')
+		list_non_credible_domains = getListOfNewsDomains('open_sources_list.csv')
 		print(news_hostname+' was first registered on '+str(getWhoisCreationDate(news_hostname)))
+		#use the newspaper framework to download the article and find data
+		article = Article(url)
+		article.download()
+		article.parse()
+		#Use Google API to find top links about the author
+		list_otherwork=getAuthorsOtherWorks(article.authors)
+		#num_quotes = 0
+		#for c in article.text:
+		#	print c
+		#	if c == '"' or c=='\'':
+		#		num_quotes+=1
+		print "Author: "+str(article.authors)
+		print article.title
+		print "LENGTH OF ARTICLE "+str(len(article.text)) +" characters"
+		article.nlp()
+		print "Article Keywords: "+article.keywords
+		print article.top_image
+		print "Article Summary: "+article.summary
+		#print "Number of Quotation Marks in "+ article.title+ " is "+ str(num_quotes)
