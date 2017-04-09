@@ -12,7 +12,7 @@ import RandomForest as rf#bag learner
 import genCrossValid as gc #generate cross-validation
 
 def getCrossValidSet(k=10, file="./data.csv", writeToFile=False):
-    train,test=gc.genData(k=10, file="./data.csv", writeToFile=True)
+    train,test=gc.genData(k, file, writeToFile)
     return train,test
 
 def run(train=[],test=[],leafsize=5,bag=10):
@@ -32,19 +32,17 @@ def run(train=[],test=[],leafsize=5,bag=10):
         outSamY = learner.query(testX)#out sample test
         sizeTrainSet=len(trainX)#how many data in this train set
         sizeTestSet=len(testX)#how many data in this test set
-        baselineTrain=np.sum(trainY)/sizeTrainSet
-        baselineTest=np.sum(testY)/sizeTestSet
+        baselineTrain=np.float(np.sum(trainY))/sizeTrainSet
+        baselineTest=np.float(np.sum(testY))/sizeTestSet
         #print np.sum(inSamY==trainY)
-        inSamACC=np.sum(inSamY==trainY)
-        outSamACC=np.sum(outSamY==testY)
+        inSamACC=np.float(np.sum(inSamY==trainY))/sizeTrainSet
+        outSamACC=np.float(np.sum(outSamY==testY))/sizeTestSet
         print "================"
         print "doing cross-valid "+str(cv+1)+":"
-        print "in-sample error: "+str(inSamACC)
-        print "in-sample baseline 1: "+str(baselineTrain)
-        print "in-sample baseline 2: "+str(1-baselineTrain)
-        print "out-sample error: "+str(outSamACC)
-        print "out-sample baseline 1: "+str(baselineTest)
-        print "out-sample baseline 2: "+str(1-baselineTest)
+        print "in-sample Accuracy: "+str(inSamACC)
+        print "in-sample baseline: "+str(max(baselineTrain,1-baselineTrain))
+        print "out-sample Accuracy: "+str(outSamACC)
+        print "out-sample baseline: "+str(max(baselineTest,1-baselineTest))
         print
 
 if __name__=="__main__":
