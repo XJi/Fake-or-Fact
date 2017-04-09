@@ -11,7 +11,7 @@ import RandomTree as rt
 import RandomForest as rf#bag learner
 import genCrossValid as gc #generate cross-validation
 
-def getCrossValidSet(k=10, file="./data.csv", writeToFile=False):
+def getCrossValidSet(k=10, file="./data.csv", writeToFile=True):
     train,test=gc.genData(k, file, writeToFile)
     return train,test
 
@@ -47,6 +47,6 @@ def run(train=[],test=[],leafsize=5,bag=10):
 
 if __name__=="__main__":
     #run(17,15);#(leaf,bag)
-    train,test=getCrossValidSet(k=10, file="./data.csv", writeToFile=True)
+    train,test=getCrossValidSet(k=10, file="./data.csv", writeToFile=False)
     run(train,test,5,1)
     pass;
