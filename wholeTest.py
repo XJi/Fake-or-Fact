@@ -15,6 +15,8 @@ import string
 import feature
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.neural_network import MLPClassifier
+from sklearn.feature_selection import SelectPercentile
+
 
 def getCrossValidSet(k=10, file="./data.csv", writeToFile=True):
     train,test=gc.genData(k, file, writeToFile)
