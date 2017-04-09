@@ -19,6 +19,13 @@ def getCrossValidSet(k=10, file="./data.csv", writeToFile=True):
 def run(train=[],test=[],leafsize=5,bag=10):
     print
     print
+    #overall accuracy
+    RFACCin=0.0
+    DTACCin=0.0
+    SVMACCin=0.0
+    RFACCout = 0.0
+    DTACCout = 0.0
+    SVMACCout = 0.0
     for cv in range(0,10):
         traindata = train[cv];
         testdata = test[cv];
@@ -37,41 +44,55 @@ def run(train=[],test=[],leafsize=5,bag=10):
         learner = rf.RandomForest(learner=rt.RandomTree, kwargs={"leaf_size": leafsize}, bags=bag, boost=False,
                                 verbose=False)
         learner.addEvidence(trainX, trainY)
-        inSamY = learner.query(trainX)#in sample test
+        #inSamY = learner.query(trainX)#in sample test
         outSamY = learner.query(testX)#out sample test
-        inSamACC=np.float(np.sum(inSamY==trainY))/sizeTrainSet
+        #inSamACC=np.float(np.sum(inSamY==trainY))/sizeTrainSet
         outSamACC=np.float(np.sum(outSamY==testY))/sizeTestSet
+        #RFACCin = RFACCin + inSamACC
+        RFACCout = RFACCout + outSamACC
 
         # ========================
         #Decision Tree
         clf = tree.DecisionTreeClassifier()
         clf = clf.fit(trainX, trainY)
-        DTinSamY = clf.predict(trainX)
+        #DTinSamY = clf.predict(trainX)
         DToutSamY = clf.predict(testX)
-        DTinSamACC = np.float(np.sum(DTinSamY == trainY)) / sizeTrainSet
+        #DTinSamACC = np.float(np.sum(DTinSamY == trainY)) / sizeTrainSet
         DToutSamACC = np.float(np.sum(DToutSamY == testY)) / sizeTestSet
+        #DTACCin = DTACCin + DTinSamACC
+        DTACCout = DTACCout + DToutSamACC
 
         # ========================
         #SVM
         svm = SVC()
         svm.fit(trainX, trainY)
-        SVMinSamY = svm.predict(trainX)
+        #SVMinSamY = svm.predict(trainX)
         SVMoutSamY = svm.predict(testX)
-        SVMinSamACC = np.float(np.sum(SVMinSamY == trainY)) / sizeTrainSet
+        #SVMinSamACC = np.float(np.sum(SVMinSamY == trainY)) / sizeTrainSet
         SVMoutSamACC = np.float(np.sum(SVMoutSamY == testY)) / sizeTestSet
+        #SVMACCin = SVMACCin + SVMinSamACC
+        SVMACCout = SVMACCout + SVMoutSamACC
 
 
         print "================"
         print "doing cross-valid "+str(cv+1)+":"
-        print "in-sample Accuracy baseline: "+str(max(baselineTrain,1-baselineTrain))
-        print "in-sample Accuracy - Random Forest: " + str(inSamACC)
-        print "in-sample Accuracy - Decision Tree: " + str(DTinSamACC)
-        print "in-sample Accuracy - SVM: " + str(SVMinSamACC)
+        #print "in-sample Accuracy baseline: "+str(max(baselineTrain,1-baselineTrain))
+        #print "in-sample Accuracy - Random Forest: " + str(inSamACC)
+        #print "in-sample Accuracy - Decision Tree: " + str(DTinSamACC)
+        #print "in-sample Accuracy - SVM: " + str(SVMinSamACC)
         print "out-sample Accuracy baseline: "+str(max(baselineTest,1-baselineTest))
         print "out-sample Accuracy - Random Fotrest: "+str(outSamACC)
         print "out-sample Accuracy - Decision Tree: " + str(DToutSamACC)
         print "out-sample Accuracy - SVM: " + str(SVMoutSamACC)
         print
+
+    print
+    print "================================"
+    print "cross validation done"
+    print "Out-sample accuracy: "
+    print "Random Forest: "+str(RFACCout/10)
+    print "Decision Tree: "+str(DTACCout/10)
+    print "SVM: "+str(SVMACCout/10)
 
 if __name__=="__main__":
     #run(17,15);#(leaf,bag)
