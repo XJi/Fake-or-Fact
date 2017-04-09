@@ -5,6 +5,9 @@ import sys
 import whois
 from newspaper import Article
 
+
+GUARDIAN_API_KEY = '091d775d-0f0e-4924-b2e9-61fd1900f1c7'
+
 def isInDictionary(d,url):
 	list_sites = d.keys()
 	#see if the hostname is found in the list provided by open sources
@@ -99,8 +102,18 @@ def getListOfNewsDomains(file_path):
 def getAuthorsOtherWorks(article):
 	return False
 
+def getGuardianContent(keywords):
 
-
+	content_string = ''
+	for keyword in keywords:
+		content_string= content_string + keyword+'%20'
+	r = requests.get('https://content.guardianapis.com/search?q='+ content_string+'&api-key='+GUARDIAN_API_KEY)
+	results = r.json()
+	list_results = results['response']['results']
+	list_guardian_articles = []
+	for json_d in list_results:
+		list_guardian_articles.append(json_d['webUrl'])
+	return list_guardian_articles
 
 if __name__ == "__main__":
 	if len(sys.argv)<2:
@@ -129,11 +142,15 @@ if __name__ == "__main__":
 		#	print c
 		#	if c == '"' or c=='\'':
 		#		num_quotes+=1
-		print "Author: "+str(article.authors)
-		print article.title
-		print "LENGTH OF ARTICLE "+str(len(article.text)) +" characters"
+		#print "Author: "+str(article.authors)
+		#print article.title
+		#print "LENGTH OF ARTICLE "+str(len(article.text)) +" characters"
 		article.nlp()
-		print "Article Keywords: "+article.keywords
-		print article.top_image
-		print "Article Summary: "+article.summary
+		#print "Article Keywords: "+str(article.keywords)
+		#print article.top_image
+		#print "Article Summary: "+article.summary
+		
+		#GET GUARDIAN CONTENT
+		list_guardian_articles = getGuardianContent(article.keywords)
+		print list_guardian_articles	
 		#print "Number of Quotation Marks in "+ article.title+ " is "+ str(num_quotes)
