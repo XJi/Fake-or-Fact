@@ -22,7 +22,7 @@ def genData(k=10, file="./data.csv", writeToFile=True):
     # else
     inf = open(file)
     data = np.array([map(float, s.strip().split(',')) for s in inf.readlines()])
-    # np.random.shuffle(data)  # shuffle the data before cross validation
+    #np.random.shuffle(data)  # shuffle the data before cross validation
     k_length = int(math.floor((1.0 / k) * data.shape[0]))
     # start, i=1
     test.append(data[0:k_length])
