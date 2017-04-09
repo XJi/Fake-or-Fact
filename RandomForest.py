@@ -8,7 +8,7 @@ from scipy import stats
 
 class RandomForest(object):
 
-    def __init__(self, learner=rt.RTLearner, kwargs = {"leaf_size":1}, bags = 20, boost = False, verbose = False):
+    def __init__(self, learner=rt.RandomTree, kwargs = {"leaf_size":1}, bags = 20, boost = False, verbose = False):
         self.learner=learner
         self.leaf_size=kwargs["leaf_size"]
         self.bags=bags
