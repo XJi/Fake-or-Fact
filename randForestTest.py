@@ -18,8 +18,6 @@ def getCrossValidSet(k=10, file="./data.csv", writeToFile=False):
 def run(train=[],test=[],leafsize=5,bag=10):
     print
     print
-    inSamRMSERT=0;
-    outSamRMSERT=0;
     for cv in range(0,10):
         traindata = train[cv];
         testdata = test[cv];
@@ -36,12 +34,15 @@ def run(train=[],test=[],leafsize=5,bag=10):
         sizeTestSet=len(testX)#how many data in this test set
         baselineTrain=np.sum(trainY)/sizeTrainSet
         baselineTest=np.sum(testY)/sizeTestSet
+        #print np.sum(inSamY==trainY)
+        inSamACC=np.sum(inSamY==trainY)
+        outSamACC=np.sum(outSamY==testY)
         print "================"
         print "doing cross-valid "+str(cv+1)+":"
-        print "in-sample error: "
+        print "in-sample error: "+str(inSamACC)
         print "in-sample baseline 1: "+str(baselineTrain)
         print "in-sample baseline 2: "+str(1-baselineTrain)
-        print "out-sample error: "
+        print "out-sample error: "+str(outSamACC)
         print "out-sample baseline 1: "+str(baselineTest)
         print "out-sample baseline 2: "+str(1-baselineTest)
         print
