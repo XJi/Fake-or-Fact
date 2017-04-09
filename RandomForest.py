@@ -7,6 +7,7 @@ import RandomTree as rt
 from scipy import stats
 
 class RandomForest(object):
+    #faster than sklearn
 
     def __init__(self, learner=rt.RandomTree, kwargs = {"leaf_size":1}, bags = 20, boost = False, verbose = False):
         self.learner=learner

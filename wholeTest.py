@@ -11,6 +11,8 @@ import RandomForest as rf#bag learner
 import genCrossValid as gc #generate cross-validation
 from sklearn import tree
 from sklearn.svm import SVC
+import string
+import feature
 
 def getCrossValidSet(k=10, file="./data.csv", writeToFile=True):
     train,test=gc.genData(k, file, writeToFile)
@@ -96,6 +98,12 @@ def run(train=[],test=[],leafsize=5,bag=10):
 
 if __name__=="__main__":
     #run(17,15);#(leaf,bag)
-    train,test=getCrossValidSet(k=10, file="./data.csv", writeToFile=False)
-    run(train,test,5,10)
-    pass;
+    #train,test=getCrossValidSet(k=10, file="./data.csv", writeToFile=False)
+    #run(train,test,5,10)
+    real=feature.constructMat('./real.txt', 1)
+    fake=feature.constructMat('./fake.txt', 0)
+    data=np.append(real,fake,axis=0)
+    np.random.shuffle(data)
+    np.savetxt("data.csv", data, delimiter=",")
+    train, test = getCrossValidSet(k=10, file="./data.csv", writeToFile=False)
+    run(train, test, 5, 30)
