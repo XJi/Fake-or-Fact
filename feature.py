@@ -128,7 +128,18 @@ def constructMat(file,label):
                 fea5 = numOfContUpperCase(original)
                 newrow = np.array([[fea1, fea2, fea3, fea4, fea5, label]])
                 res = np.append(res, newrow, axis=0)
-    return res#.resize(5)#CHANGE THIS LINE!!!!!!!
+    return res
+
+def constructRealFea(headline):
+    cleaned = headline.lower().strip()
+    original = headline.strip()
+    fea1 = numOfWords(cleaned)
+    fea2 = numOfChar(cleaned)
+    fea3 = numOfPunc(cleaned)
+    fea4 = numOfContPunc(cleaned)
+    fea5 = numOfContUpperCase(original)
+    res = np.array([[fea1, fea2, fea3, fea4, fea5]])
+    return res
 
 
 if __name__ == '__main__':
