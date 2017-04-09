@@ -1,7 +1,6 @@
 """
     function:
-    1. k-fold cross validation
-    2. automatically fit the better parameter based on cross-validation
+    k-fold cross validation
     """
 __author__ = "Shiyi Li"
 
