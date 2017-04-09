@@ -13,6 +13,8 @@ from sklearn import tree
 from sklearn.svm import SVC
 import string
 import feature
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.neural_network import MLPClassifier
 
 def getCrossValidSet(k=10, file="./data.csv", writeToFile=True):
     train,test=gc.genData(k, file, writeToFile)
@@ -22,12 +24,11 @@ def run(train=[],test=[],leafsize=5,bag=10):
     print
     print
     #overall accuracy
-    RFACCin=0.0
-    DTACCin=0.0
-    SVMACCin=0.0
     RFACCout = 0.0
     DTACCout = 0.0
     SVMACCout = 0.0
+    RFCACCout=0.0
+    MLPACCout = 0.0
     for cv in range(0,10):
         traindata = train[cv];
         testdata = test[cv];
@@ -54,6 +55,14 @@ def run(train=[],test=[],leafsize=5,bag=10):
         RFACCout = RFACCout + outSamACC
 
         # ========================
+        #Random Forest - SKLEARN
+        rfc=RandomForestClassifier(n_estimators=bag)
+        rfc.fit(trainX, trainY)
+        RFCoutSamY=rfc.predict(testX)
+        RFCoutSamACC = np.float(np.sum(RFCoutSamY == testY)) / sizeTestSet
+        RFCACCout=RFCACCout+RFCoutSamACC
+
+        # ========================
         #Decision Tree
         clf = tree.DecisionTreeClassifier()
         clf = clf.fit(trainX, trainY)
@@ -75,6 +84,14 @@ def run(train=[],test=[],leafsize=5,bag=10):
         #SVMACCin = SVMACCin + SVMinSamACC
         SVMACCout = SVMACCout + SVMoutSamACC
 
+        # ========================
+        # feed forward - neural net
+        clf=MLPClassifier(solver='lbfgs',alpha=1e-5,hidden_layer_sizes=(100,), random_state=1)
+        clf.fit(trainX, trainY)
+        MLPoutSamY = clf.predict(testX)
+        MLPoutSamACC = np.float(np.sum(MLPoutSamY == testY)) / sizeTestSet
+        MLPACCout = MLPACCout+ MLPoutSamACC
+
 
         print "================"
         print "doing cross-valid "+str(cv+1)+":"
@@ -83,9 +100,11 @@ def run(train=[],test=[],leafsize=5,bag=10):
         #print "in-sample Accuracy - Decision Tree: " + str(DTinSamACC)
         #print "in-sample Accuracy - SVM: " + str(SVMinSamACC)
         print "out-sample Accuracy baseline: "+str(max(baselineTest,1-baselineTest))
-        print "out-sample Accuracy - Random Fotrest: "+str(outSamACC)
+        print "out-sample Accuracy - Random Forest: "+str(outSamACC)
+        print "out-sample Accuracy - Random Forest - SKLEARN: "+str(RFCoutSamACC)
         print "out-sample Accuracy - Decision Tree: " + str(DToutSamACC)
         print "out-sample Accuracy - SVM: " + str(SVMoutSamACC)
+        print "out-sample Accuracy - Neural Net MLP: "+str(MLPoutSamACC)
         print
 
     print
@@ -93,15 +112,17 @@ def run(train=[],test=[],leafsize=5,bag=10):
     print "cross validation done"
     print "Out-sample accuracy: "
     print "Random Forest: "+str(RFACCout/10)
+    print "Random Forest - SKLEARN: "+str(RFCACCout/10)
     print "Decision Tree: "+str(DTACCout/10)
     print "SVM: "+str(SVMACCout/10)
+    print "Neural Net MLP: "+str(MLPACCout/10)
 
 if __name__=="__main__":
     #run(17,15);#(leaf,bag)
     #train,test=getCrossValidSet(k=10, file="./data.csv", writeToFile=False)
     #run(train,test,5,10)
-    real=feature.constructMat('./real.txt', 1)
-    fake=feature.constructMat('./fake.txt', 0)
+    real=feature.constructMat('./real2.txt', 1)
+    fake=feature.constructMat('./fake2.txt', 0)
     data=np.append(real,fake,axis=0)
     np.random.shuffle(data)
     np.savetxt("data.csv", data, delimiter=",")
