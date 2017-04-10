@@ -18,7 +18,7 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='ie10-viewport-bug-workaround.css') }}">
 
     <!-- Custom styles for this template -->
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='fake.css') }}?version=1">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='fake.css') }}?version=11">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -46,36 +46,43 @@
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="#">Home</a></li>
                   <li><a href="#">Features</a></li>
-                  <li><a href="#">Contact</a></li>
                 </ul>
               </nav>
             </div>
           </div>
 
           <div class="inner cover">
-            <h1 class="cover-heading">Enter Your URL</h1>
-            <form action="{{ url_for('show_contents') }}" method="post" >
-                <p>
-                <input type="text" name="target_url" class="form-control">
-                </p>
-                <p class="lead">
-                <input type="submit" name="action" value="Verify" class="btn btn-lg btn-default" />
-                </p>
-                </form>
-          </div>
+            <div class="page">
+              {% if entries|length > 1 %}
+              <p>Url Entered: {{ entries[0] }}</p>
+              <p>Title: {{ entries[1] }}</p>
+              {% if entries[2] == "Credible" or entries[2] == "Real News" %}
+                <p><h2 id="credible-color">{{ entries[2] }}</h2></p>
+              {% else %}
+                <p><h2 id="fake-color">{{ entries[2] }}</h2></p>
+              {% endif %}
 
-          <div class=page>
-              {% if entries is defined %}
-              <p>url enter: {{ entries[0] }}</p>
-              <p>title: {{ entries[1] }}</p>
-              <p>url is considered: {{ entries[2] }}</p>
               {% else %}
                 {% endif %}
             </div>
+              <p class="lead"></p>
+              <p></p>
+              <p></p>
+              <p></p>
+            <h1 class="cover-heading">Enter Your URL</h1>
+            <form action="{{ url_for('show_contents') }}" method="post" >
+
+                <p><input type="text" name="target_url" class="form-control"></p>
+                <p class="lead">
+                <input type="submit" name="action" value="Verify" class="btn btn-lg btn-default" />
+                </p>
+
+                </form>
+          </div>
 
           <div class="mastfoot">
             <div class="inner">
-              <p>Author: Brian, Xingyu, Xiaojing, Shiyi</p>
+              <p>Author: Xingyu, Brian, Xiaojing, Shiyi</p>
             </div>
           </div>
 

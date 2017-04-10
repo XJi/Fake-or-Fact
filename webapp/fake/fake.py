@@ -1,5 +1,5 @@
 # all the imports
-import  sys, os
+import sys, os
 import csv
 import requests, logging
 from HTMLParser import HTMLParser
@@ -9,6 +9,7 @@ from flask import Flask, request, session, g, redirect, url_for, abort, \
 
 h = HTMLParser()
 from settings import APP_STATIC
+from finalModel import model
 
 app = Flask(__name__) # create the application instance :)
 app.config.from_object(__name__) # load config from this file , fake.py
@@ -55,7 +56,7 @@ def isDomainReputable(url):
             site = row[0]
             if site.startswith('"') and site.endswith('"'):
                 site = site[1:-1]
-            credible_news[site]="credible"
+            credible_news[site]="Credible"
     value = isInDictionary(credible_news,parsed_uri)
 
     if value is not -1:
@@ -72,6 +73,10 @@ def getNewsTitle(url):
             end = html.find('</title>', start)
             title = html[start:end]
             title = h.unescape(title)
+
+            if " - " in title:
+                title = title.rsplit(' - ', 1)[0] # remove last tail if title contains website name
+
     except requests.exceptions.ConnectionError:
         logging.error('failed to connect to: '+url)
     return title
@@ -89,6 +94,14 @@ def show_contents():
         if url is not None:
             title = getNewsTitle(url)
             entries.append(title)
-            entries.append(isDomainReputable(url))
+            if(isDomainReputable(url) == "Site Not Found in our data list!"):
+                mod = model(fakeFile=os.path.join(APP_STATIC, 'fake2.txt'), realFile=os.path.join(APP_STATIC, 'real2.txt'))
+                if mod.query(title) == 1:
+                    predict_result = "Real News"
+                else:
+                    predict_result = "Fake News"
+                entries.append(predict_result)
+            else:
+                entries.append(isDomainReputable(url))
         return render_template('index.html', entries=entries)
 
