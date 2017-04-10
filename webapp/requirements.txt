@@ -1,0 +1,17 @@
+appdirs==1.4.3
+click==6.7
+-e git+https://github.com/XJi/Fake-or-Fact.git@49ab28fe0e91ffa351417e3b4666a6ef1d2240ca#egg=fake&subdirectory=webapp
+Flask==0.12.1
+itsdangerous==0.24
+Jinja2==2.9.6
+MarkupSafe==1.0
+nltk==3.2.2
+numpy==1.12.1
+packaging==16.8
+pyparsing==2.2.0
+requests==2.13.0
+scikit-learn==0.18.1
+scipy==0.19.0
+six==1.10.0
+sklearn==0.0
+Werkzeug==0.12.1
