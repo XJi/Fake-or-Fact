@@ -1,14 +1,13 @@
 # Fake-or-Fact
-A News Analyzer to detect fake news
-
-
+A News Analyzer to detect fake news  
+  
 ### prerequisite outside libraries  
 if using RandomTree.py, RandomForest.py, genCrossValid.py, then <b>Numpy</b> and <b>Scipy</b> are required:  
 Numpy v1.11.1  
 Scipy v0.17.1  
-  
-  
+Scikit-learn v.0.18.1  
 
+  
 ### If you want to generate the data set for cross-validation  
 [LINK - wikipedia for cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics))  
 in genCrossValid.py, <b>genData(k, file, writeToFile)</b> can generate the datasets for k-fold cross validation  
