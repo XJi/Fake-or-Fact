@@ -6,6 +6,7 @@ if using RandomTree.py, RandomForest.py, genCrossValid.py, then <b>Numpy</b> and
 Numpy v1.11.1  
 Scipy v0.17.1  
 Scikit-learn v.0.18.1  
+NLTK v?.??.?  
 
   
 ### If you want to generate the data set for cross-validation  
