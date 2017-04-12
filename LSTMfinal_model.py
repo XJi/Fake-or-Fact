@@ -112,13 +112,13 @@ def reload_model(file_name):
 
 #max_len for keywords: , max_len_for_titles:
 def format_testcase(string, type, max_len):
-    #keywords
+    #titles
     single = list()
     if type == 0:
         single = nltk.word_tokenize(clean_sentence(string))
-    #titles
+    #keywords
     else:
-        single = string.strip().split(',')
+        single = string
     mapping = list()
     for one_keyword in single:
         mapping.append(one_hot(one_keyword, 7000)[0])
@@ -135,6 +135,13 @@ if __name__ == "__main__":
     #Task on the titles
     #save_model("./data/titles/fake_news_training.txt", "./data/titles/real_news_training.txt",1,"model_titles.json" )
     #Redload a save model:
+    '''#Extract keywords from the web
+        article = Article(url)
+        article.download()
+        article.parse()
+        article.nlp()
+        article.keywords
+        #from newspaper import Article'''
     model = reload_model("model_titles.json")
 
     '''parse the input from web front end, say the keywords/titles are raw strings
