@@ -1,5 +1,0 @@
-#!/bin/bash
-. venv/bin/activate
-export FLASK_APP=fake
-export FLASK_DEBUG=true
-flask run
