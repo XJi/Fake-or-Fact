@@ -94,8 +94,10 @@ def show_contents():
                 else:
                     predict_result = "Fake News"
                 entries.append(predict_result)
+                entries.append("Machine Learning Analysis")
             else:
                 entries.append(isDomainReputable(url))
+                entries.append("Statistic Analysis")
         return render_template('index.html', entries=entries)
 
 # run the app.

@@ -68,6 +68,9 @@ body {
 #fake-color {
   color: #FF0000 !important;
 }
+#method {
+  color: #0000FF !important;
+}
 
 /*
  * Header

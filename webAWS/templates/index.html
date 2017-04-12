@@ -18,7 +18,7 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/ie10-viewport-bug-workaround.css') }}">
 
     <!-- Custom styles for this template -->
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/fake.css') }}?version=13">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/fake.css') }}?version=14">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -45,7 +45,6 @@
               <nav>
                 <ul class="nav masthead-nav">
                   <li class="active"><a href="#">Home</a></li>
-                  <li><a href="#">Features</a></li>
                 </ul>
               </nav>
             </div>
@@ -56,6 +55,7 @@
               {% if entries|length > 1 %}
               <p>Url Entered: {{ entries[0] }}</p>
               <p>Title: {{ entries[1] }}</p>
+              <p id="method">Methon Used: {{ entries[3] }}</p>
               {% if entries[2] == "Credible" or entries[2] == "Real News" %}
                 <p><h2 id="credible-color">{{ entries[2] }}</h2></p>
               {% else %}
