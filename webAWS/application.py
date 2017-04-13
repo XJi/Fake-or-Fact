@@ -15,6 +15,8 @@ from finalModel import model
 application = Flask(__name__)
 application.debug = True
 
+mod = model(fakeFile=os.path.join(APP_STATIC, 'fake2.txt'), realFile=os.path.join(APP_STATIC, 'real2.txt'))
+
 def isInDictionary(d,url):
     list_sites = d.keys()
     #see if the hostname is found in the list provided by open sources
@@ -90,7 +92,6 @@ def show_contents():
                 title = getNewsTitle(url)
                 entries.append(title)
                 #if(isDomainReputable(url) == "Site Not Found in our data list!"):
-                mod = model(fakeFile=os.path.join(APP_STATIC, 'fake2.txt'), realFile=os.path.join(APP_STATIC, 'real2.txt'))
                 if mod.query(title) == 1:
                     predict_result = "Real News"
                 else:
