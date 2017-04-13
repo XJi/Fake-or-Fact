@@ -26,14 +26,16 @@ a:hover {
 
 html,
 body {
-  background: url(/static/img/main.jpg) no-repeat center center fixed;
+
+  background: url(/static/img/mainpage.jpg) no-repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
 
+
   height: 100%;
-  background-color: #060;
+  background-color: #333;
   color: #fff;
   text-align: center;
   text-shadow: 0 1px 3px rgba(0,0,0,.5);
@@ -64,12 +66,17 @@ body {
 
 #credible-color {
   color: #090 !important;
+  margin-top: 5px;
+  margin-bottom: 60px;
 }
 #fake-color {
   color: #FF0000 !important;
+  margin-top: 5px;
+  margin-bottom: 60px;
 }
-#method {
-  color: #0000FF !important;
+.method {
+  color: #fff !important;
+  font-size: 15px;
 }
 
 /*

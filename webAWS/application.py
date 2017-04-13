@@ -87,17 +87,14 @@ def show_contents():
         if url is not None:
             title = getNewsTitle(url)
             entries.append(title)
-            if(isDomainReputable(url) == "Site Not Found in our data list!"):
-                mod = model(fakeFile=os.path.join(APP_STATIC, 'fake2.txt'), realFile=os.path.join(APP_STATIC, 'real2.txt'))
-                if mod.query(title) == 1:
-                    predict_result = "Real News"
-                else:
-                    predict_result = "Fake News"
-                entries.append(predict_result)
-                entries.append("Machine Learning Analysis")
+            #if(isDomainReputable(url) == "Site Not Found in our data list!"):
+            mod = model(fakeFile=os.path.join(APP_STATIC, 'fake2.txt'), realFile=os.path.join(APP_STATIC, 'real2.txt'))
+            if mod.query(title) == 1:
+                predict_result = "Real News"
             else:
-                entries.append(isDomainReputable(url))
-                entries.append("Statistic Analysis")
+                predict_result = "Fake News"
+            entries.append(isDomainReputable(url)) #statistic result
+            entries.append(predict_result)        #machine learning result
         return render_template('index.html', entries=entries)
 
 # run the app.
