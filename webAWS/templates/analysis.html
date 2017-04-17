@@ -150,7 +150,6 @@
 
       <!-- START THE FEATURETTES -->
 
-      
       <hr class="featurette-divider">
 
       <div class="row featurette">
@@ -169,7 +168,7 @@
       <div class="row featurette">
         <div class="col-md-7">
           <h2 class="featurette-heading">Decision Tree Prediction: <p><span class="text-muted">{{ entries[7] }}</span></p></h2>
-          <p class="lead">Decision tree is a tree model, the query process corresponds to a route from the root to a leaf. In each inner node one feature value will be examined, by comparing with a pre-calculated value the next node to go will be determined. Our project is constructing the decision tree based on Gini Index (one measurement of information gain).</p>
+          <p class="lead">Decision tree is a tree model, the query process corresponds to a path from the root to a leaf. In each inner node one feature value will be examined, by comparing with a pre-calculated value it will decide which subtree to go. When it reach a leaf, the result stored in will be the answer. In our project, Gini impurity is used to determine which feature to examine for every node when building the tree.</p>
         </div>
         <div class="col-md-5">
           <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
@@ -180,8 +179,8 @@
 
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
-          <h2 class="featurette-heading">Random Forest Prediction:<p><span class="text-muted">{{ entries[7] }}</span></p></h2>
-          <p class="lead">place holder.</p>
+          <h2 class="featurette-heading">Random Forest (decision tree version) Prediction:<p><span class="text-muted">{{ entries[7] }}</span></p></h2>
+          <p class="lead">The random forest is a collection of different trees which are trained by different sub-samples of the dataset, therefore random forest is less susceptible to over-fitting when compared with many other models. This version is constructed base on decision trees which use Gini impurity when training.</p>
         </div>
         <div class="col-md-5 col-md-pull-7">
           <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
@@ -192,18 +191,20 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">Random Forest Prediction:<p><span class="text-muted">{{ entries[7] }}</span></p></h2>
-          <p class="lead">place holder.</p>
+          <h2 class="featurette-heading">Random Forest (random tree version) Prediction:<p><span class="text-muted">{{ entries[7] }}</span></p></h2>
+          <p class="lead">This is also a random forest, what's different is the trees inside are random trees, they are not selecting features based on measurements like Entropy and Gini impurity, but by randomly choosing instead. The method is proposed in a paper by Adele Cutler and Guohua Zhao, "PERT – Perfect Random Tree Ensembles".</p>
         </div>
         <div class="col-md-5">
           <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
         </div>
       </div>
 
+      <hr class="featurette-divider">
+
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
           <h2 class="featurette-heading">Neural Network Prediction: <p><span class="text-muted">{{ entries[7] }}</span></p></h2>
-          <p class="lead">place holder.</p>
+          <p class="lead">The neural network working behind is a feed-forward neural network. It contains 105 neurons(perceptrons), divided into 3 layers. Neurons in the 1st layer will read in the feature, and neurons in the remaining 2 layers will read output of neurons from last layer.</p>
         </div>
         <div class="col-md-5 col-md-pull-7">
           <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
@@ -223,7 +224,6 @@
       </div>
 
       <hr class="featurette-divider">
-
 
       <!-- /END THE FEATURETTES -->
 
