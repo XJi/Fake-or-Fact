@@ -56,7 +56,7 @@ def isDomainReputable(url):
 
     if value is not -1:
         return value
-    return "Site Not Found in our data list!"
+    return "Site Not Found in data list!"
 
 
 def getNewsTitle(url):
@@ -75,6 +75,52 @@ def getNewsTitle(url):
     except requests.exceptions.ConnectionError:
         logging.error('failed to connect to: '+url)
     return title
+
+@application.route('/analysis', methods=['GET', 'POST'])
+def show_analysis():
+    if request.method == 'POST':
+        url = request.form['target_url']
+        return redirect(url_for('show_analysis', url=url))
+    else:
+        entries = []
+        url = request.args.get('url')
+        if url is not None:
+            entries.append(url)
+            if url != '':
+                title = getNewsTitle(url)
+                entries.append(title)
+                entries.append(isDomainReputable(url)) #statistic result
+
+                if mod.queryRF(title) == 1:
+                    entries.append("Real News")
+                else:
+                    entries.append("Fake News")
+
+                if mod.queryRFSK(title) == 1:
+                    entries.append("Real News")
+                else:
+                    entries.append("Fake News")
+
+                if mod.queryDT(title) == 1:
+                    entries.append("Real News")
+                else:
+                    entries.append("Fake News")
+
+                if mod.queryMLP(title) == 1:
+                    entries.append("Real News")
+                else:
+                    entries.append("Fake News")
+
+                if mod.querySVM(title) == 1:
+                    entries.append("Real News")
+                else:
+                    entries.append("Fake News")
+
+                if mod.query(title) == 1:
+                    entries.append("Real News")
+                else:
+                    entries.append("Fake News")
+        return render_template('analysis.html', entries=entries)
 
 
 @application.route('/', methods=['GET', 'POST'])

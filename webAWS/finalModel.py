@@ -60,6 +60,32 @@ class model(object):
         else:
             return 0
 
+    # rand forest result
+    def queryRF(self,headline):
+        testX=feature.constructRealFea(headline)
+        return self.RF.query(testX)
+
+    # rand forest sklearn result
+    def queryRFSK(self,headline):
+        testX=feature.constructRealFea(headline)
+        return self.RFSklearn.predict(testX)
+
+    # decision tree result
+    def queryDT(self,headline):
+        testX=feature.constructRealFea(headline)
+        return self.DT.predict(testX)
+
+    # neural net result
+    def queryMLP(self,headline):
+        testX=feature.constructRealFea(headline)
+        return self.MLP.predict(testX)
+
+    # SVM result
+    def querySVM(self,headline):
+        testX=feature.constructRealFea(headline)
+        return self.SVM.predict(testX)
+
+
 if __name__=="__main__":
     print "THIS IS A SAMPLE."
     mod = model(fakeFile='./fake2.txt', realFile='./real2.txt')

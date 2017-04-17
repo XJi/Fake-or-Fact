@@ -18,7 +18,7 @@
     <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/ie10-viewport-bug-workaround.css') }}">
 
     <!-- Custom styles for this template -->
-    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/fake.css') }}?version=31">
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='css/fake.css') }}?version=32">
 
     <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -51,30 +51,25 @@
           </div>
 
           <div class="inner cover">
-            <div class="page">
-              {% if entries|length > 1 %}
-              <p>Url Entered: {{ entries[0] }}</p>
-              <p>Title: {{ entries[1] }}</p>
-              <div class="col-lg-6 lead">Comparison with OpenSource.co: </div>
-              <div class="col-lg-6 lead">Machine Learning Analysis:</div>
-              {% if entries[2] == "Credible" %}
-              <div class="row">
-                <div class="col-lg-6"><h2 id="credible-color">{{ entries[2] }}</h2></div>
-              {% else %}
-              <div class="row">
-                <div class="col-lg-6"><h2 id="fake-color">{{ entries[2] }}</h2></div>
-              {% endif %}
-              {% if entries[3] == "Real News" %}
-                <div class="col-lg-6"><h2 id="credible-color">{{ entries[3] }}</h2></div>
-                </div>
-              {% else %}
-                <div class="col-lg-6"><h2 id="fake-color">{{ entries[3] }}</h2></div>
-                </div>
-              {% endif %}
 
-              {% else %}
+            {% if entries|length > 1 %}
+            <form action="{{ url_for('show_analysis') }}" method="post" >
+                <p><input type="hidden" name="target_url" value="{{ entries[0] }}"></p>
+                <p class="lead">
+                {% if entries|length > 1 %}
+                Analysis Result:
+                {% if entries[3] == "Real News" %}
+                <input type="submit" name="action" value="Real News" class="btn btn-success" />
+                {% else %}
+                <input type="submit" name="action" value="Fake News" class="btn btn-danger" />
                 {% endif %}
-            </div>
+                {% else %}
+                {% endif %}
+                </p>
+            </form>
+            {% else %}
+                {% endif %}
+
             <p class="lead"></p>
             <p><h1 class="cover-heading">Enter Your URL</h1></p>
             <form action="{{ url_for('show_contents') }}" method="post" >
