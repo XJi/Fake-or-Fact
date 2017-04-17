@@ -150,7 +150,6 @@
 
       <!-- START THE FEATURETTES -->
 
-      
       <hr class="featurette-divider">
 
       <div class="row featurette">
@@ -180,8 +179,8 @@
 
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
-          <h2 class="featurette-heading">Random Forest Prediction:<p><span class="text-muted">{{ entries[7] }}</span></p></h2>
-          <p class="lead">place holder.</p>
+          <h2 class="featurette-heading">Random Forest (decision tree version) Prediction:<p><span class="text-muted">{{ entries[7] }}</span></p></h2>
+          <p class="lead">The random forest is a collection of different trees which are trained by different sub-samples of the dataset, therefore random forest is less susceptible to over-fitting when compared with many other models. This version is constructed base on decision trees which use Gini impurity when training.</p>
         </div>
         <div class="col-md-5 col-md-pull-7">
           <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
@@ -192,13 +191,15 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">Random Forest Prediction:<p><span class="text-muted">{{ entries[7] }}</span></p></h2>
-          <p class="lead">place holder.</p>
+          <h2 class="featurette-heading">Random Forest (random tree version) Prediction:<p><span class="text-muted">{{ entries[7] }}</span></p></h2>
+          <p class="lead">This is also a random forest, what's different is the trees inside are random trees, they are not selecting features based on calculation, but by randomly choosing instead. The method is proposed in a paper by Adele Cutler & Guohua Zhao, "PERT – Perfect Random Tree Ensembles".</p>
         </div>
         <div class="col-md-5">
           <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
         </div>
       </div>
+
+      <hr class="featurette-divider">
 
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
@@ -223,7 +224,6 @@
       </div>
 
       <hr class="featurette-divider">
-
 
       <!-- /END THE FEATURETTES -->
 
