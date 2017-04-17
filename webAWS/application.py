@@ -4,12 +4,14 @@ import csv
 import requests, logging
 from HTMLParser import HTMLParser
 from urlparse import urlparse
+from newspaper import Article
 from flask import Flask, request, session, g, redirect, url_for, abort, \
      render_template, flash
+from finalModel import model
+from LSTMfinal_model import lstm_model
 
 h = HTMLParser()
 from settings import APP_STATIC
-from finalModel import model
 
 # EB looks for an 'application' callable by default.
 application = Flask(__name__)
@@ -120,6 +122,30 @@ def show_analysis():
                     entries.append("Real News")
                 else:
                     entries.append("Fake News")
+
+                # get content from url
+                article = Article(url)
+                article.download()
+                article.parse()
+                article.nlp()
+
+                #following is LSTM Analysis
+                LSTM_Title_Model = lstm_model()
+                LSTM_Title_Model = LSTM_Title_Model.reload_model(os.path.join(APP_STATIC, 'model_titles.json'), os.path.join(APP_STATIC, 'model.h5'))
+                LSTM_Content_Model = lstm_model()
+                LSTM_Content_Model = LSTM_Content_Model.reload_model(os.path.join(APP_STATIC, 'model_keywords.json'),os.path.join(APP_STATIC, 'model.h5'))
+
+                LSTM_Title_Model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+                LSTM_Content_Model.compile(loss='binary_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+
+                title_training = lstm_model().format_testcase(title, 0,39)
+                content_training = lstm_model().format_testcase(article.keywords, 1,19)
+
+                title_result = np.sum(LSTM_Title_Model.predict(title_training))/39
+                content_result = np.sum(LSTM_Content_Model.predict(content_training))/19
+                print "title result:" + title_result
+                print "content result:" + content_result
+
         return render_template('analysis.html', entries=entries)
 
 
