@@ -122,7 +122,8 @@ def show_analysis():
                     entries.append("Real News")
                 else:
                     entries.append("Fake News")
-
+        return render_template('analysis.html', entries=entries)
+"""
                 # get content from url
                 article = Article(url)
                 article.download()
@@ -143,10 +144,13 @@ def show_analysis():
 
                 title_result = np.sum(LSTM_Title_Model.predict(title_training))/39
                 content_result = np.sum(LSTM_Content_Model.predict(content_training))/19
-                print "title result:" + title_result
-                print "content result:" + content_result
 
-        return render_template('analysis.html', entries=entries)
+                # append LSTM result of keyword
+                if content_result > 0.5:
+                    entries.append("Real News")
+                else:
+                    entries.append("Fake News")
+                """
 
 
 @application.route('/', methods=['GET', 'POST'])
