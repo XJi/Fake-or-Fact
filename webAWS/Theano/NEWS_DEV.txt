@@ -1,0 +1,79 @@
+.. _NEWS_DEV:
+
+===================
+DRAFT Release Notes
+===================
+
+git log -p rel-0.9.0... |grep Merge|grep '#[0123456789]' |cut -f 8 -d ' ' | sed 's\#\* https://github.com/Theano/Theano/pull/\'
+
+# Commit count per user
+git shortlog -sn rel-0.9.0..
+
+
+
+# docker?
+
+TODO: better Theano conv doc
+
+# NB: Following notes contains infos since 0.9.0.
+
+Highlights:
+ - Speed up graph toposort algorithm
+ - Speed up Theano scan compilation and gradient computation
+ - Added meaningful message when missing inputs to scan
+ - Bug fixes related to Debug mode
+
+ - New GPU back-end:
+
+   - Added useful stats for GPU in profile mode
+   - Added documentation for GPU float16 ops
+
+
+Interface changes:
+ - Changed ``grad()`` method to ``L_op`` in ops that need the outputs to compute gradient
+ - Merged duplicated diagonal functions into two ops: ``ExtractDiag`` (extract a diagonal to a vector),
+   and ``AllocDiag`` (set a vector as a diagonal of an empty array)
+
+Convolution updates:
+ - Extended Theano flag ``dnn.enabled`` with new option ``no_check`` to help speed up cuDNN importation
+
+
+GPU:
+ - ...
+
+New features:
+ - Added scalar and elemwise ops for modified Bessel function of order 0 and 1 from ``scipy.special``
+
+
+Others:
+ - ...
+
+
+Other more detailed changes:
+ - Removed useless warning when profile is manually disabled
+ - Added tests for abstract conv
+
+
+
+ALL THE PR BELLOW HAVE BEEN CHECKED
+* https://github.com/Theano/Theano/pull/5715
+* https://github.com/Theano/Theano/pull/5502
+* https://github.com/Theano/Theano/pull/5533
+* https://github.com/Theano/Theano/pull/5660
+* https://github.com/Theano/Theano/pull/5682
+* https://github.com/Theano/Theano/pull/5704
+* https://github.com/Theano/Theano/pull/5687
+* https://github.com/Theano/Theano/pull/5455
+* https://github.com/Theano/Theano/pull/5667
+* https://github.com/Theano/Theano/pull/5554
+* https://github.com/Theano/Theano/pull/5486
+* https://github.com/Theano/Theano/pull/5567
+* https://github.com/Theano/Theano/pull/5615
+* https://github.com/Theano/Theano/pull/5672
+* https://github.com/Theano/Theano/pull/5524
+
+Theano Development version
+==========================
+
+NEWS.txt:
+
