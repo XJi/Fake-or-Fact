@@ -19,6 +19,6 @@ in genCrossValid.py, <b>genData(k, file, writeToFile)</b> can generate the datas
 <b>--return</b>: list for training sets and list of testing sets (all in Numpy's nd-array)
 
 ### To run the application after downloading the source code
-<b>Install Packages Listed Above If Necessary</b>
-Go to webAWS folder, type $ ./run or $ python application.py on terminal for python 2.7. For python3, please run the application by $ python3 application.py
+<b>Install Packages Listed Above If Necessary</b>  
+Go to webAWS folder, type $ ./run or $ python application.py on terminal for python 2.7. For python3, please run the application by $ python3 application.py  
 <b>Version Notation</b> The master contains the complete version of this project, which is expected to run in python 3. However, if you don't have python 3, a python 2.7 version is provided in the branch. Please note that python 2.7 version doesn't have LSTM model involved. 
