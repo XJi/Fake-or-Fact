@@ -40,12 +40,12 @@ def genData(k=10, file="./data.csv", writeToFile=True):
 
     if writeToFile:
         for i in range(1, k + 1):
-            print "writing the file for " + str(i) + "-th cross validation"
+            print("writing the file for " + str(i) + "-th cross validation")
             try:
                 np.savetxt(str(i)+"train.csv", train[i-1], delimiter=",")
                 np.savetxt(str(i)+"test.csv", test[i-1], delimiter=",")
             except:
-                print "exception when writing the file for " + str(i) + "-th cross-validation"
+                print("exception when writing the file for " + str(i) + "-th cross-validation")
 
             pass
 

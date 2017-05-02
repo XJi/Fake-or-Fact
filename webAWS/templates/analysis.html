@@ -130,18 +130,18 @@
       <!-- Three columns of text below the carousel -->
       <div class="row">
         <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+          <img class="img-circle" alt="Generic placeholder image" src="{{ url_for('static', filename='img/sky.jpg') }}" width="140" height="140">
           <h2>OpenSources.co Analysis</h2>
           <p>We trivially compare the article URL with the curated list of news sites maintained by OpenSources.co. This provides a good benchmark on how a human maintained list performs against the large amount of news sites on the internet. The number one challenge with having humans classify news articles as credible and non-credible is that humans are prone to judgement errors and that the pace of news articles often surpasses the speed at which a person can possibly review them.</p>
           <!--<p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>-->
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+          <img class="img-circle" src="{{ url_for('static', filename='img/newspaper.jpg') }}" alt="Generic placeholder image" width="140" height="140">
           <h2>Headline Extraction - Machine Learning Module</h2>
           <p>Our application attempts to extract the headline from a online news article. Next, we extract features from the headline and test it against our training set to make a judgement about wheter or not the news article is credible or non-credible. Scroll down below to see how our individual machine learning models performed! </p>
         </div><!-- /.col-lg-4 -->
         <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" width="140" height="140">
+          <img class="img-circle" src="{{ url_for('static', filename='img/content.png') }}" alt="Generic placeholder image" width="140" height="140">
           <h2>Content Extraction - Machine Learning </h2>
           <p>Finally, our application extracts the content of a news articles and determines the article keywords based on frequency of usage. The keywords are used as features in different machine learning models. Once again, feel free to scroll down and see how each model performed.</p>
         </div><!-- /.col-lg-4 -->
@@ -153,36 +153,25 @@
       <hr class="featurette-divider">
 
       <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">Random Forest Prediction:<p><span class="text-muted">{{ entries[3] }}</span></p></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-        </div>
-      </div>
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
           <h2 class="featurette-heading">SVM Prediction: <p><span class="text-muted">{{ entries[7] }}</span></p></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <p class="lead">Support Vector Machine (SVM) is a powerful linear classification algorithm. By solving the maximum margin problem, it aims at finding a hyperplane decision boundary in the middle of the two classes. In our model, the soft-margin version is used.</p>
         </div>
         <div class="col-md-5 col-md-pull-7">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" src="{{ url_for('static', filename='img/svm.png') }}">
         </div>
       </div>
+
 
       <hr class="featurette-divider">
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">Neural Network Prediction: <p><span class="text-muted">{{ entries[6] }}</span></p></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Decision Tree Prediction: <p><span class="text-muted">{{ entries[5] }}</span></p></h2>
+          <p class="lead">Decision tree is a tree model, the query process corresponds to a path from the root to a leaf. In each inner node one feature value will be examined, by comparing with a pre-calculated value it will decide which subtree to go. When it reach a leaf, the result stored in will be the answer. In our project, Gini impurity is used to determine which feature to examine for every node when building the tree.</p>
         </div>
         <div class="col-md-5">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" src="{{ url_for('static', filename='img/DT.jpg') }}" alt="Generic placeholder image">
         </div>
       </div>
 
@@ -190,11 +179,47 @@
 
       <div class="row featurette">
         <div class="col-md-7 col-md-push-5">
-          <h2 class="featurette-heading">Decision Tree Prediction: <p><span class="text-muted">{{ entries[5] }}</span></p></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+          <h2 class="featurette-heading">Random Forest (decision tree version) Prediction:<p><span class="text-muted">{{ entries[4] }}</span></p></h2>
+          <p class="lead">The random forest is a collection of different trees which are trained by different sub-samples of the dataset, therefore random forest is less susceptible to over-fitting when compared with many other models. This version is constructed base on decision trees which use Gini impurity when training.</p>
         </div>
         <div class="col-md-5 col-md-pull-7">
-          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" src="{{ url_for('static', filename='img/rf.jpg') }}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">Random Forest (random tree version) Prediction:<p><span class="text-muted">{{ entries[3] }}</span></p></h2>
+          <p class="lead">This is also a random forest, what's different is the trees inside are random trees, they are not selecting features based on measurements like Entropy and Gini impurity, but by randomly choosing instead. The method is proposed in a paper by Adele Cutler and Guohua Zhao, "PERT – Perfect Random Tree Ensembles".</p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" src="{{ url_for('static', filename='img/rt.png') }}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7 col-md-push-5">
+          <h2 class="featurette-heading">Neural Network Prediction: <p><span class="text-muted">{{ entries[6] }}</span></p></h2>
+          <p class="lead">The neural network working behind is a feed-forward neural network. It contains 105 neurons(perceptrons), divided into 3 layers. Neurons in the 1st layer will read in the feature, and neurons in the remaining 2 layers will read output of neurons from last layer.</p>
+        </div>
+        <div class="col-md-5 col-md-pull-7">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" src="{{ url_for('static', filename='img/multilayerperceptron_network.png') }}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-7">
+          <h2 class="featurette-heading">LSTM Prediction: <p><span class="text-muted">{{ entries[9] }}</span></p></h2>
+          <p class="lead">LSTM refers to Long-Short Term Memory, which is a recurrent neural network architecture. It achieved the best known results in natural language text. This model applies binary cross－entropy to the preprocessed content keywords data. </p>
+        </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive center-block" data-src="holder.js/500x500/auto" src="{{ url_for('static', filename='img/LSTM1.png') }}" alt="Generic placeholder image">
         </div>
       </div>
 

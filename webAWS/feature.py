@@ -145,4 +145,4 @@ def constructRealFea(headline):
 
 if __name__ == '__main__':
     #print numOfContUpperCase("huhAAiAihiuhAAAAuhuhAAAAA")
-    print constructMat('./fake.txt',1)
+    print(constructMat('./fake.txt',1))

@@ -1,0 +1,90 @@
+# After changing this file, check it on:
+# http://lint.travis-ci.org/
+sudo: false
+cache:
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.theano
+    - $HOME/download # Sufficient to add miniconda.sh to TRAVIS cache.
+    - $HOME/miniconda2 # Add the installation to TRAVIS cache.
+
+
+language: python
+python:
+  - "2.7"
+  - "3.3"
+
+# NB:
+# In before_install and install sections below,
+# some codes have been moved to separate files
+# to better handle if-else shell syntax
+# for multiple lines. New files are in
+# new folder ".travis".
+
+# command to install dependencies
+before_install:
+  - ./.travis/travis_before_install.sh
+  - export PATH=/home/travis/miniconda2/bin:$PATH
+
+addons:
+  apt_packages:
+   - texlive-latex-recommended
+   - texlive-latex-extra
+   - texlive-fonts-recommended
+   - dvipng
+
+install:
+  - ./.travis/travis_install.sh
+  - source activate pyenv
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then pip install pydot; else pip install pydot-ng; fi
+  - pip install . --no-deps --upgrade
+  - pip install flake8-future-import nose-parameterized==0.5.0 sphinx_rtd_theme
+  # nose-exclude plugin allow us to tell nosetests to exclude folder with --exclude-dir=path/to/directory.
+  - pip install nose-exclude
+
+# command to run tests
+env:
+  - PART="theano/tests/test_flake8.py" DOC=1
+  - PART="-e test_flake8.py theano/compat theano/compile theano/d3viz theano/gof theano/misc theano/sandbox theano/scalar theano/scan_module theano/sparse theano/tests theano/typed_list"
+  - PART="theano/tensor -e test_basic.py --exclude-dir=theano/tensor/nnet"
+  - PART="theano/tensor/tests/test_basic.py"
+  - PART="theano/tensor/nnet -e test_abstract_conv.py"
+  - PART="theano/tensor/nnet/tests/test_abstract_conv.py"
+
+matrix:
+  fast_finish: true
+  include:
+    - python: "3.3"
+      env: PART="--exclude-dir=theano/tensor -e test_flake8.py ." THEANO_FLAGS="mode=FAST_COMPILE"
+    - python: "3.3"
+      env: PART="theano/tensor --exclude-dir=theano/tensor/nnet" THEANO_FLAGS="mode=FAST_COMPILE"
+    - python: "3.3"
+      env: PART="theano/tensor/nnet" THEANO_FLAGS="mode=FAST_COMPILE"
+    - python: "2.7"
+      env: PART="--exclude-dir=theano/tensor -e test_flake8.py ." THEANO_FLAGS="mode=FAST_COMPILE,floatX=float32"
+    - python: "2.7"
+      env: PART="theano/tensor --exclude-dir=theano/tensor/nnet" THEANO_FLAGS="mode=FAST_COMPILE,floatX=float32"
+    - python: "2.7"
+      env: PART="theano/tensor/nnet" THEANO_FLAGS="mode=FAST_COMPILE,floatX=float32"
+
+script:
+  - export THEANO_FLAGS=$THEANO_FLAGS,warn.ignore_bug_before=all,on_opt_error=raise,on_shape_error=raise,gcc.cxxflags=-pipe
+  - python --version
+  - uname -a
+  - free -m
+  - df -h
+  - ulimit -a
+  # Move out of Theano so the import will use the installed version
+  - cd ..
+  # Move to the path of the installed version
+  - cd $(python -c 'import theano; import os; print(os.path.split(theano.__file__)[0])')
+  - echo "$PART"
+  - cd -; cd Theano
+  - python -c 'import theano; print(theano.config.__str__(print_doc=False))'
+  - python -c 'import theano; assert(theano.config.blas.ldflags != "")'
+  - theano-nose -v $PART
+  - if [[ $DOC == "1" ]]; then python doc/scripts/docgen.py --nopdf --check; fi
+  - if [[ $DOC == "1" ]]; then python doc/scripts/docgen.py --test --check; fi
+
+after_failure:
+  - cat /home/travis/.pip/pip.log

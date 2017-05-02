@@ -87,6 +87,6 @@ class model(object):
 
 
 if __name__=="__main__":
-    print "THIS IS A SAMPLE."
+    print("THIS IS A SAMPLE.")
     mod = model(fakeFile='./fake2.txt', realFile='./real2.txt')
-    print mod.query("ISIS claims responsibility for Palm Sunday church bombings in Egypt")
+    print(mod.query("ISIS claims responsibility for Palm Sunday church bombings in Egypt"))
