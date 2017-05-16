@@ -1,6 +1,7 @@
 # Fake-or-Fact
 A News Analyzer to detect fake news  
 Here's a video demo: https://www.youtube.com/watch?v=JDM_5WDHOfc&feature=youtu.be
+[![Alt text for your video](http://img.youtube.com/vi/JDM_5WDHOfc/0.jpg)](https://www.youtube.com/watch?v=JDM_5WDHOfc&feature=youtu.be)
 
 ### prerequisite outside libraries  
 if using RandomTree.py, RandomForest.py, genCrossValid.py, then <b>Numpy</b> and <b>Scipy</b> are required:  
