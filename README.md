@@ -5,11 +5,13 @@ Here's a video demo: https://www.youtube.com/watch?v=JDM_5WDHOfc&feature=youtu.b
 
 ### prerequisite outside libraries  
 if using RandomTree.py, RandomForest.py, genCrossValid.py, then <b>Numpy</b> and <b>Scipy</b> are required:  
-Numpy v1.11.1  
+Numpy ~~v1.11.1~~  v1.16.4
 Scipy v0.17.1  
 Scikit-learn v.0.18.1  
 NLTK v3.2.1  
+Theano (for LSTM model) v1.0.4
 
+Install/Upgrade existing libraries: **$ sudo pip install lib_name (--upgrade)**
   
 ### If you want to generate the data set for cross-validation  
 [LINK - wikipedia for cross-validation](https://en.wikipedia.org/wiki/Cross-validation_(statistics))  
